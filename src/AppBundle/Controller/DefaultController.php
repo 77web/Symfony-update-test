@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Customer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -10,13 +12,16 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     * @param Request $request
+     * @param Customer $customer
      * @return array
-     * @Route("/", name="homepage")
+     * @Route("/{id}", name="homepage")
+     * @ParamConverter(name="customer", class="AppBundle\Entity\Customer")
      * @Template
      */
-    public function indexAction(Request $request)
+    public function indexAction(Customer $customer)
     {
-        return [];
+        return [
+            'customer' => $customer,
+        ];
     }
 }
